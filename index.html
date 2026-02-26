@@ -8,7 +8,7 @@
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:#f4f4f4;
+  background:#f2f2f2;
 }
 
 header{
@@ -22,6 +22,19 @@ header p{
   margin:5px 0;
 }
 
+.search-box{
+  margin:15px auto;
+  max-width:500px;
+  text-align:center;
+}
+
+.search-box input{
+  width:90%;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ccc;
+}
+
 .cart-btn{
   background:#ff9800;
   color:white;
@@ -33,20 +46,29 @@ header p{
 }
 
 .menu-section{
-  max-width:900px;
+  max-width:1100px;
   margin:20px auto;
   background:white;
   padding:20px;
-  border-radius:10px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.menu-section h2{
+  border-bottom:2px solid #ff9800;
+  padding-bottom:5px;
 }
 
 .menu-item{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:10px 0;
   padding:10px;
-  border-bottom:1px solid #ddd;
+  border-bottom:1px solid #eee;
+}
+
+.menu-item:hover{
+  background:#fafafa;
 }
 
 .menu-item select,
@@ -58,19 +80,26 @@ header p{
   background:black;
   color:white;
   border:none;
-  padding:6px 10px;
-  border-radius:5px;
+  padding:6px 12px;
+  border-radius:6px;
   cursor:pointer;
+}
+
+.combo-box{
+  background:#fff3e0;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
 }
 
 .cart-panel{
   position:fixed;
   right:-100%;
   top:0;
-  width:320px;
+  width:340px;
   height:100%;
   background:white;
-  box-shadow:-5px 0 10px rgba(0,0,0,0.2);
+  box-shadow:-5px 0 15px rgba(0,0,0,0.3);
   padding:15px;
   transition:0.3s;
   overflow-y:auto;
@@ -91,7 +120,6 @@ header p{
   color:white;
   border:none;
   padding:3px 6px;
-  cursor:pointer;
 }
 
 .cart-total{
@@ -125,84 +153,144 @@ footer{
 <h1>🍁 Canadian Pizza & Burger</h1>
 <p>Banda Road, Khutar, Shahjahanpur</p>
 <p>📞 <a href="tel:917992007113" style="color:#ff9800;">+91 7992007113</a></p>
+
+<div class="search-box">
+<input type="text" placeholder="Search food..." onkeyup="searchMenu(this.value)">
+</div>
+
 <button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
 </header>
 
+<!-- COMBOS -->
+<div class="menu-section">
+<h2>🔥 Special Combos</h2>
+
+<div class="combo-box">
+<b>Kid's Meal</b> – Sweet Corn Pizza + French Fries + 250ml Coke – ₹150
+<button onclick="addSimple('Kids Combo',150,1)">Add</button>
+</div>
+
+<div class="combo-box">
+<b>Royal Meal</b> – Royal Burger + Fries + 250ml Coke – ₹150
+<button onclick="addSimple('Royal Meal Combo',150,1)">Add</button>
+</div>
+</div>
+
+<!-- PIZZAS -->
 <div class="menu-section">
 <h2>🍕 Pizzas</h2>
 
 <div class="menu-item">
 <span>Margherita</span>
 <div>
-<select id="size1">
+<select id="p1s">
 <option value="60">Regular - ₹60</option>
 <option value="80">Extra Regular - ₹80</option>
 <option value="170">Medium - ₹170</option>
 <option value="270">Large - ₹270</option>
 </select>
-<input type="number" id="qty1" value="1" min="1">
-<button onclick="addItem('Margherita','size1','qty1')">Add</button>
+<input type="number" id="p1q" value="1" min="1">
+<button onclick="addItem('Margherita','p1s','p1q')">Add</button>
 </div>
 </div>
 
 <div class="menu-item">
 <span>Paneer Makhani</span>
 <div>
-<select id="size2">
+<select id="p2s">
 <option value="170">Regular - ₹170</option>
 <option value="180">Extra Regular - ₹180</option>
 <option value="280">Medium - ₹280</option>
 <option value="460">Large - ₹460</option>
 </select>
-<input type="number" id="qty2" value="1" min="1">
-<button onclick="addItem('Paneer Makhani','size2','qty2')">Add</button>
+<input type="number" id="p2q" value="1" min="1">
+<button onclick="addItem('Paneer Makhani','p2s','p2q')">Add</button>
 </div>
 </div>
 
 <div class="menu-item">
 <span>Farm Fresh</span>
 <div>
-<select id="size3">
+<select id="p3s">
 <option value="190">Regular - ₹190</option>
 <option value="220">Extra Regular - ₹220</option>
 <option value="320">Medium - ₹320</option>
 <option value="490">Large - ₹490</option>
 </select>
-<input type="number" id="qty3" value="1" min="1">
-<button onclick="addItem('Farm Fresh','size3','qty3')">Add</button>
+<input type="number" id="p3q" value="1" min="1">
+<button onclick="addItem('Farm Fresh','p3s','p3q')">Add</button>
+</div>
+</div>
+
+</div>
+
+<!-- BURGERS -->
+<div class="menu-section">
+<h2>🍔 Burgers</h2>
+
+<div class="menu-item">
+<span>Happy Price Burger - ₹40</span>
+<div>
+<input type="number" id="b1" value="1" min="1">
+<button onclick="addSimple('Happy Price Burger',40,'b1')">Add</button>
 </div>
 </div>
 
 <div class="menu-item">
-<span>Tandoori</span>
+<span>Royal Burger - ₹80</span>
 <div>
-<select id="size4">
-<option value="200">Regular - ₹200</option>
-<option value="220">Extra Regular - ₹220</option>
-<option value="330">Medium - ₹330</option>
-<option value="510">Large - ₹510</option>
-</select>
-<input type="number" id="qty4" value="1" min="1">
-<button onclick="addItem('Tandoori','size4','qty4')">Add</button>
+<input type="number" id="b2" value="1" min="1">
+<button onclick="addSimple('Royal Burger',80,'b2')">Add</button>
+</div>
+</div>
+
+</div>
+
+<!-- CHINESE -->
+<div class="menu-section">
+<h2>🍜 Chinese</h2>
+
+<div class="menu-item">
+<span>Veg Noodles - ₹50</span>
+<div>
+<input type="number" id="c1" value="1" min="1">
+<button onclick="addSimple('Veg Noodles',50,'c1')">Add</button>
 </div>
 </div>
 
 <div class="menu-item">
-<span>Punjabi</span>
+<span>Fried Rice - ₹90</span>
 <div>
-<select id="size5">
-<option value="230">Regular - ₹230</option>
-<option value="280">Extra Regular - ₹280</option>
-<option value="350">Medium - ₹350</option>
-<option value="510">Large - ₹510</option>
-</select>
-<input type="number" id="qty5" value="1" min="1">
-<button onclick="addItem('Punjabi','size5','qty5')">Add</button>
+<input type="number" id="c2" value="1" min="1">
+<button onclick="addSimple('Fried Rice',90,'c2')">Add</button>
 </div>
 </div>
 
 </div>
 
+<!-- SHAKES -->
+<div class="menu-section">
+<h2>🥤 Shakes</h2>
+
+<div class="menu-item">
+<span>Cold Coffee - ₹50</span>
+<div>
+<input type="number" id="s1" value="1" min="1">
+<button onclick="addSimple('Cold Coffee',50,'s1')">Add</button>
+</div>
+</div>
+
+<div class="menu-item">
+<span>Oreo Shake - ₹70</span>
+<div>
+<input type="number" id="s2" value="1" min="1">
+<button onclick="addSimple('Oreo Shake',70,'s2')">Add</button>
+</div>
+</div>
+
+</div>
+
+<!-- CART -->
 <div class="cart-panel" id="cartPanel">
 <h3>Your Cart</h3>
 <div id="cartItems"></div>
@@ -218,22 +306,27 @@ footer{
 <script>
 let cart=[];
 
+function searchMenu(value){
+  let items=document.querySelectorAll(".menu-item");
+  value=value.toLowerCase();
+  items.forEach(item=>{
+    item.style.display=item.innerText.toLowerCase().includes(value) ? "flex":"none";
+  });
+}
+
 function addItem(name,sizeId,qtyId){
   let select=document.getElementById(sizeId);
   let sizeText=select.options[select.selectedIndex].text;
   let price=parseInt(select.value);
   let qty=parseInt(document.getElementById(qtyId).value);
-
   let fullName=name+" ("+sizeText.split(" - ")[0]+")";
+  cart.push({name:fullName,price:price,qty:qty});
+  renderCart();
+}
 
-  let existing=cart.find(item=>item.name===fullName);
-
-  if(existing){
-    existing.qty+=qty;
-  } else{
-    cart.push({name:fullName,price:price,qty:qty});
-  }
-
+function addSimple(name,price,qtyId){
+  let qty=typeof qtyId==="string" ? parseInt(document.getElementById(qtyId).value):1;
+  cart.push({name:name,price:price,qty:qty});
   renderCart();
 }
 
@@ -248,8 +341,7 @@ function renderCart(){
       <div class="cart-item">
         ${item.name} x${item.qty}
         <button onclick="removeItem(${index})">X</button>
-      </div>
-    `;
+      </div>`;
   });
 
   document.getElementById("cartTotal").innerText=total;
@@ -266,18 +358,14 @@ function toggleCart(){
 }
 
 function sendOrder(){
-  if(cart.length===0){ alert("Cart is empty"); return; }
-
+  if(cart.length===0){ alert("Cart empty"); return; }
   let message="Order:%0A";
   let total=0;
-
   cart.forEach(item=>{
     message+=item.name+" x"+item.qty+" - ₹"+(item.price*item.qty)+"%0A";
     total+=item.price*item.qty;
   });
-
   message+="%0ATotal: ₹"+total;
-
   window.open("https://wa.me/917992007113?text="+message);
 }
 </script>
