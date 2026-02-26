@@ -250,7 +250,102 @@ card.style.display=card.innerText.toLowerCase().includes(val)?"block":"none";
 });
 }
 
+</script><script>
+
+let cart = [];
+
+function toggleCart(){
+  document.getElementById("cartPanel").classList.toggle("active");
+}
+
+function changeQty(id, val){
+  let input = document.getElementById(id);
+  let newVal = parseInt(input.value) + val;
+  if(newVal < 1) newVal = 1;
+  input.value = newVal;
+}
+
+function addToCart(cat, name, id){
+  let qty = parseInt(document.getElementById(id+"q").value);
+  let price;
+
+  let select = document.getElementById(id);
+
+  if(select){
+    price = parseInt(select.value);
+    let sizeText = select.options[select.selectedIndex].text.split(" - ")[0];
+    name = name + " (" + sizeText + ")";
+  } else {
+    price = parseInt(
+      document.querySelector(`[onclick*="${name}"]`)
+      .parentElement
+      .querySelector("h3")
+      .innerText.includes(name)
+    );
+  }
+
+  let existing = cart.find(item => item.name === name);
+
+  if(existing){
+    existing.qty += qty;
+  } else {
+    cart.push({name, price, qty});
+  }
+
+  renderCart();
+}
+
+function renderCart(){
+  let cartItems = document.getElementById("cartItems");
+  let total = 0;
+
+  cartItems.innerHTML = "";
+
+  cart.forEach((item,index)=>{
+    let itemTotal = item.price * item.qty;
+    total += itemTotal;
+
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <div>
+          ${item.name}<br>
+          ₹${item.price} x ${item.qty}
+        </div>
+        <button onclick="removeItem(${index})">❌</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("total").innerText = total;
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCart();
+}
+
+function sendOrder(){
+  if(cart.length === 0){
+    alert("Cart is empty!");
+    return;
+  }
+
+  let message = "Order Details:%0A";
+  let total = 0;
+
+  cart.forEach(item=>{
+    let itemTotal = item.price * item.qty;
+    total += itemTotal;
+    message += `${item.name} x${item.qty} - ₹${itemTotal}%0A`;
+  });
+
+  message += `%0ATotal Amount: ₹${total}`;
+
+  window.open(`https://wa.me/917992007113?text=${message}`);
+}
+
 </script>
+  
 
 </body>
 </html>
