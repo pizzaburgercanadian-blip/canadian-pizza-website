@@ -20,7 +20,7 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 .add-btn{margin-top:10px;width:100%;padding:10px;background:#f59e0b;border:none;color:white;border-radius:12px}
 .cart-panel{position:fixed;right:-100%;top:0;width:340px;height:100%;background:white;box-shadow:-5px 0 20px rgba(0,0,0,0.2);padding:20px;transition:.3s;overflow-y:auto}
 .cart-panel.active{right:0}
-.cart-item{display:flex;justify-content:space-between;margin-bottom:8px}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
 .cart-total{font-weight:bold;margin-top:15px;font-size:18px}
 .cart-btn{position:fixed;bottom:20px;right:20px;background:#f59e0b;color:white;padding:18px;border-radius:50%;border:none;font-size:20px}
 .footer{background:#0f172a;color:white;text-align:center;padding:25px;margin-top:30px}
@@ -54,7 +54,7 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 
 <footer class="footer">
 <h3>About Us</h3>
-<p>Canadian Pizza & Burger serves fresh pizzas, burgers, Chinese, shakes and snacks at affordable prices. Quality and taste are our priority.</p>
+<p>Canadian Pizza & Burger serves fresh pizzas, burgers, Chinese, shakes and snacks at affordable prices.</p>
 <p><a href="https://maps.app.goo.gl/9dd661A5yQpbdK8F8?g_st=ic" target="_blank">View on Google Maps</a></p>
 <p>© 2026 Canadian Pizza & Burger</p>
 </footer>
@@ -155,42 +155,36 @@ const menuData = {
 
 };
 
+let cart=[];
+
 const categoryContainer=document.getElementById("categoryContainer");
 const menuContainer=document.getElementById("menuContainer");
 
 Object.keys(menuData).forEach(cat=>{
-categoryContainer.innerHTML+=`<div class="cat-card" onclick="scrollToSection('${cat}')">${cat}</div>`;
-
+categoryContainer.innerHTML+=`<div class="cat-card" onclick="document.getElementById('${cat}').scrollIntoView({behavior:'smooth'})">${cat}</div>`;
 let section=`<div class="section" id="${cat}"><h2>${cat}</h2>`;
-
 menuData[cat].forEach((item,i)=>{
 section+=`<div class="item-card"><h3>${item.name}</h3>`;
-
 if(item.sizes){
-section+=`
-<select id="${cat+i}">
+section+=`<select id="${cat+i}">
 <option value="${item.sizes[0]}">Regular - ₹${item.sizes[0]}</option>
 <option value="${item.sizes[1]}">Extra Regular - ₹${item.sizes[1]}</option>
 <option value="${item.sizes[2]}">Medium - ₹${item.sizes[2]}</option>
 <option value="${item.sizes[3]}">Large - ₹${item.sizes[3]}</option>
 </select>`;
 }
-
 section+=`
 <div class="qty-control">
 <button onclick="changeQty('${cat+i}q',-1)">-</button>
-<input type="number" id="${cat+i}q" value="1" min="1">
+<input type="number" id="${cat+i}q" value="1">
 <button onclick="changeQty('${cat+i}q',1)">+</button>
 </div>
 <button class="add-btn" onclick="addToCart('${cat}','${item.name}','${cat+i}')">Add to Cart</button>
 </div>`;
 });
-
 section+="</div>";
 menuContainer.innerHTML+=section;
 });
-
-let cart=[];
 
 function changeQty(id,val){
 let input=document.getElementById(id);
@@ -205,12 +199,14 @@ let price;
 let select=document.getElementById(id);
 if(select){
 price=parseInt(select.value);
-let sizeText=select.options[select.selectedIndex].text.split(" - ")[0];
-name=name+" ("+sizeText+")";
+let size=select.options[select.selectedIndex].text.split(" - ")[0];
+name=name+" ("+size+")";
 }else{
 price=menuData[cat].find(i=>i.name===name).price;
 }
-cart.push({name:name,price:price,qty:qty});
+let existing=cart.find(i=>i.name===name);
+if(existing){existing.qty+=qty;}
+else{cart.push({name,price,qty});}
 renderCart();
 }
 
@@ -220,7 +216,10 @@ items.innerHTML="";
 let total=0;
 cart.forEach((item,i)=>{
 total+=item.price*item.qty;
-items.innerHTML+=`<div class="cart-item">${item.name} x${item.qty}<button onclick="removeItem(${i})">X</button></div>`;
+items.innerHTML+=`<div class="cart-item">
+<div>${item.name}<br>₹${item.price} x ${item.qty}</div>
+<button onclick="removeItem(${i})">❌</button>
+</div>`;
 });
 document.getElementById("total").innerText=total;
 }
@@ -230,17 +229,14 @@ function toggleCart(){document.getElementById("cartPanel").classList.toggle("act
 
 function sendOrder(){
 if(cart.length==0){alert("Cart empty");return;}
-let msg="Order:%0A";let total=0;
+let msg="Order Details:%0A";let total=0;
 cart.forEach(item=>{
-msg+=item.name+" x"+item.qty+" - ₹"+(item.price*item.qty)+"%0A";
-total+=item.price*item.qty;
+let t=item.price*item.qty;
+total+=t;
+msg+=item.name+" x"+item.qty+" - ₹"+t+"%0A";
 });
 msg+="%0ATotal: ₹"+total;
 window.open("https://wa.me/917992007113?text="+msg);
-}
-
-function scrollToSection(id){
-document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
 function searchItems(val){
@@ -250,102 +246,7 @@ card.style.display=card.innerText.toLowerCase().includes(val)?"block":"none";
 });
 }
 
-</script><script>
-
-let cart = [];
-
-function toggleCart(){
-  document.getElementById("cartPanel").classList.toggle("active");
-}
-
-function changeQty(id, val){
-  let input = document.getElementById(id);
-  let newVal = parseInt(input.value) + val;
-  if(newVal < 1) newVal = 1;
-  input.value = newVal;
-}
-
-function addToCart(cat, name, id){
-  let qty = parseInt(document.getElementById(id+"q").value);
-  let price;
-
-  let select = document.getElementById(id);
-
-  if(select){
-    price = parseInt(select.value);
-    let sizeText = select.options[select.selectedIndex].text.split(" - ")[0];
-    name = name + " (" + sizeText + ")";
-  } else {
-    price = parseInt(
-      document.querySelector(`[onclick*="${name}"]`)
-      .parentElement
-      .querySelector("h3")
-      .innerText.includes(name)
-    );
-  }
-
-  let existing = cart.find(item => item.name === name);
-
-  if(existing){
-    existing.qty += qty;
-  } else {
-    cart.push({name, price, qty});
-  }
-
-  renderCart();
-}
-
-function renderCart(){
-  let cartItems = document.getElementById("cartItems");
-  let total = 0;
-
-  cartItems.innerHTML = "";
-
-  cart.forEach((item,index)=>{
-    let itemTotal = item.price * item.qty;
-    total += itemTotal;
-
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <div>
-          ${item.name}<br>
-          ₹${item.price} x ${item.qty}
-        </div>
-        <button onclick="removeItem(${index})">❌</button>
-      </div>
-    `;
-  });
-
-  document.getElementById("total").innerText = total;
-}
-
-function removeItem(index){
-  cart.splice(index,1);
-  renderCart();
-}
-
-function sendOrder(){
-  if(cart.length === 0){
-    alert("Cart is empty!");
-    return;
-  }
-
-  let message = "Order Details:%0A";
-  let total = 0;
-
-  cart.forEach(item=>{
-    let itemTotal = item.price * item.qty;
-    total += itemTotal;
-    message += `${item.name} x${item.qty} - ₹${itemTotal}%0A`;
-  });
-
-  message += `%0ATotal Amount: ₹${total}`;
-
-  window.open(`https://wa.me/917992007113?text=${message}`);
-}
-
 </script>
-  
 
 </body>
 </html>
