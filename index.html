@@ -71,17 +71,82 @@ footer{
 .contact-box{
     text-align:center;
 }
-</style>
+.hero {
+  background: url('https://images.unsplash.com/photo-1601924582975-7e9b9b1a9c3b') center/cover no-repeat;
+  height: 90vh;
+  position: relative;
+  color: white;
+}
+
+.overlay {
+  background: rgba(0,0,0,0.7);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.hero-btn {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: #ff9800;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  background: #e68900;
+  transform: scale(1.05);
+}
 </head>
+    <section id="order">
+  <h2 style="text-align:center;">Place Your Order</h2>
+
+  <form id="orderForm" style="max-width:400px;margin:auto;text-align:center;">
+    <input type="text" id="name" placeholder="Your Name" required><br><br>
+    <input type="text" id="phone" placeholder="Phone Number" required><br><br>
+    <textarea id="orderDetails" placeholder="Your Order" required></textarea><br><br>
+    <button type="submit">Send Order on WhatsApp</button>
+  </form>
+</section>
+
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  var name = document.getElementById("name").value;
+  var phone = document.getElementById("phone").value;
+  var order = document.getElementById("orderDetails").value;
+
+  var message = "Name: " + name + "%0APhone: " + phone + "%0AOrder: " + order;
+
+  var whatsappURL = "https://wa.me/97992008113text=" + message;
+
+  window.open(whatsappURL, "_blank");
+});
+</script>
 
 <body>
 
-<header>
-<h1>🍁 Canadian Pizza & Burger</h1>
-<p>Banda Road, Khutar, Shahjahanpur – 242405</p>
-<p>Open Daily: 10:00 AM – 11:00 PM</p>
-<a href="https://wa.me/917992007113" class="button">Order on WhatsApp</a>
+<header class="hero">
+  <div class="overlay">
+    <h1>🍁 Canadian Pizza & Burger</h1>
+    <p>Banda Road, Khutar, Shahjahanpur</p>
+    <p>Open Daily: 10:00 AM – 11:00 PM</p>
+    <a href="#order" class="hero-btn">Order Now</a>
+  </div>
 </header>
+
 
 <nav>
 <a href="#menu">Menu</a>
