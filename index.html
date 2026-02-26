@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canadian Pizza & Burger</title>
-    <link rel="manifest" href="manifest.json">
+
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#000000">
 
 <style>
@@ -13,64 +14,8 @@ body{
     font-family: Arial, sans-serif;
     background:#fff8f0;
 }
-header{
-    background:#000000;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
-nav{
-    background:#2f2f2f;
-    text-align:center;
-    padding:12px;
-}
-nav a{
-    color:white;
-    margin:0 15px;
-    text-decoration:none;
-    font-weight:bold;
-}
-section{
-    padding:40px 20px;
-}
-h2{
-    color:#b71c1c;
-    text-align:center;
-}
-.menu-container{
-    max-width:900px;
-    margin:auto;
-}
-.menu-category{
-    margin-bottom:30px;
-}
-.menu-category h3{
-    border-bottom:2px solid #b71c1c;
-    padding-bottom:5px;
-}
-.menu-item{
-    display:flex;
-    justify-content:space-between;
-    padding:6px 0;
-}
-.button{
-    display:inline-block;
-    background:#ff9800;
-    color:white;
-    padding:12px 20px;
-    text-decoration:none;
-    border-radius:5px;
-    margin-top:15px;
-}
-footer{
-    background:#222;
-    color:white;
-    text-align:center;
-    padding:15px;
-}
-.contact-box{
-    text-align:center;
-}
+
+/* HERO SECTION */
 .hero {
   background: url('https://images.unsplash.com/photo-1601924582975-7e9b9b1a9c3b') center/cover no-repeat;
   height: 90vh;
@@ -108,33 +53,88 @@ footer{
   background: #e68900;
   transform: scale(1.05);
 }
+
+/* NAV */
+nav{
+    background:#2f2f2f;
+    text-align:center;
+    padding:12px;
+}
+nav a{
+    color:white;
+    margin:0 15px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* SECTIONS */
+section{
+    padding:40px 20px;
+}
+h2{
+    color:#b71c1c;
+    text-align:center;
+}
+
+/* MENU */
+.menu-container{
+    max-width:900px;
+    margin:auto;
+}
+.menu-category{
+    margin-bottom:30px;
+}
+.menu-category h3{
+    border-bottom:2px solid #b71c1c;
+    padding-bottom:5px;
+}
+.menu-item{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+}
+
+/* BUTTON */
+.button{
+    display:inline-block;
+    background:#ff9800;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    border-radius:5px;
+    margin-top:15px;
+}
+
+/* FORM */
+form input, form textarea {
+  width:100%;
+  padding:10px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+
+form button{
+  padding:12px 20px;
+  background:black;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+form button:hover{
+  background:#333;
+}
+
+/* FOOTER */
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+</style>
 </head>
-    <section id="order">
-  <h2 style="text-align:center;">Place Your Order</h2>
-
-  <form id="orderForm" style="max-width:400px;margin:auto;text-align:center;">
-    <input type="text" id="name" placeholder="Your Name" required><br><br>
-    <input type="text" id="phone" placeholder="Phone Number" required><br><br>
-    <textarea id="orderDetails" placeholder="Your Order" required></textarea><br><br>
-    <button type="submit">Send Order on WhatsApp</button>
-  </form>
-</section>
-
-<script>
-document.getElementById("orderForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  var name = document.getElementById("name").value;
-  var phone = document.getElementById("phone").value;
-  var order = document.getElementById("orderDetails").value;
-
-  var message = "Name: " + name + "%0APhone: " + phone + "%0AOrder: " + order;
-
-  var whatsappURL = "https://wa.me/97992008113text=" + message;
-
-  window.open(whatsappURL, "_blank");
-});
-</script>
 
 <body>
 
@@ -146,7 +146,6 @@ document.getElementById("orderForm").addEventListener("submit", function(e){
     <a href="#order" class="hero-btn">Order Now</a>
   </div>
 </header>
-
 
 <nav>
 <a href="#menu">Menu</a>
@@ -163,50 +162,34 @@ document.getElementById("orderForm").addEventListener("submit", function(e){
 <div class="menu-item"><span>Margherita</span><span>₹60 / ₹80 / ₹170 / ₹270</span></div>
 <div class="menu-item"><span>Paneer Makhani</span><span>₹170 / ₹180 / ₹280 / ₹460</span></div>
 <div class="menu-item"><span>Farm Fresh</span><span>₹190 / ₹220 / ₹320 / ₹490</span></div>
-<div class="menu-item"><span>Tandoori</span><span>₹200 / ₹220 / ₹330 / ₹510</span></div>
-<div class="menu-item"><span>Punjabi</span><span>₹230 / ₹280 / ₹350 / ₹510</span></div>
-</div>
-
-<div class="menu-category">
-<h3>🍔 Burgers</h3>
-<div class="menu-item"><span>Happy Price Burger</span><span>₹40</span></div>
-<div class="menu-item"><span>Regular Burger</span><span>₹50</span></div>
-<div class="menu-item"><span>Royal Burger</span><span>₹80</span></div>
-<div class="menu-item"><span>Canadian Double Decker</span><span>₹130</span></div>
-</div>
-
-<div class="menu-category">
-<h3>🍜 Chinese</h3>
-<div class="menu-item"><span>Veg Noodles</span><span>₹50</span></div>
-<div class="menu-item"><span>Fried Rice</span><span>₹70</span></div>
-<div class="menu-item"><span>Chilli Paneer (Half/Full)</span><span>₹90 / ₹160</span></div>
-</div>
-
-<div class="menu-category">
-<h3>🥤 Shakes</h3>
-<div class="menu-item"><span>Cold Coffee</span><span>₹50 / ₹100</span></div>
-<div class="menu-item"><span>Oreo Shake</span><span>₹70 / ₹120</span></div>
 </div>
 
 </div>
+</section>
+
+<section id="order">
+<h2>Place Your Order</h2>
+<form id="orderForm" style="max-width:400px;margin:auto;text-align:center;">
+<input type="text" id="name" placeholder="Your Name" required><br><br>
+<input type="text" id="phone" placeholder="Phone Number" required><br><br>
+<textarea id="orderDetails" placeholder="Your Order" required></textarea><br><br>
+<button type="submit">Send Order on WhatsApp</button>
+</form>
 </section>
 
 <section id="about">
 <h2>About Us</h2>
 <p style="text-align:center; max-width:700px; margin:auto;">
 Canadian Pizza & Burger is a popular food outlet located at Banda Road, Khutar, Shahjahanpur.
-We serve fresh pizzas, burgers, wraps, pasta, Chinese dishes, shakes and combo meals at affordable prices.
-Quality, hygiene and great taste is our priority.
+We serve fresh pizzas, burgers, wraps, pasta and more at affordable prices.
 </p>
 </section>
 
 <section id="contact">
-    <a href="https://maps.app.goo.gl/9dd661A5yQpbdK8F8?g_st=ic" target="_blank" class="button">📍 View on Google Maps</a>
 <h2>Contact Us</h2>
-<div class="contact-box">
+<div style="text-align:center;">
 <p>📍 Banda Road, Khutar, Shahjahanpur – 242405</p>
-<p>🕒 10:00 AM – 11:00 PM (Mon–Sun)</p>
-<p>📞 Call Now</p>
+<p>🕒 10:00 AM – 11:00 PM</p>
 <a href="https://wa.me/917992007113" class="button">WhatsApp Order</a>
 </div>
 </section>
@@ -214,6 +197,21 @@ Quality, hygiene and great taste is our priority.
 <footer>
 © 2026 Canadian Pizza & Burger | All Rights Reserved
 </footer>
+
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var name = document.getElementById("name").value;
+  var phone = document.getElementById("phone").value;
+  var order = document.getElementById("orderDetails").value;
+
+  var message = "Name: " + name + "%0APhone: " + phone + "%0AOrder: " + order;
+
+  var whatsappURL = "https://wa.me/917992007113?text=" + message;
+
+  window.open(whatsappURL, "_blank");
+});
+</script>
 
 </body>
 </html>
