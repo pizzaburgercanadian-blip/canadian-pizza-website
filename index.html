@@ -6,19 +6,103 @@
 
 <style>
 body{margin:0;font-family:Arial;background:#f2f4f8}
-header{background:#0f172a;color:white;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
+
+/* HEADER */
+header{
+background:#0f172a;
+color:white;
+padding:20px;
+text-align:center;
+}
+
 header p{margin:4px 0;font-size:14px}
-.search-box input{width:90%;padding:12px;border-radius:25px;border:none;margin-top:10px;font-size:16px}
-.categories{display:flex;overflow-x:auto;gap:10px;padding:15px}
-.cat-card{min-width:140px;background:white;border-radius:18px;text-align:center;padding:12px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.1);cursor:pointer}
+
+.search-box input{
+width:90%;
+padding:12px;
+border-radius:25px;
+border:none;
+margin-top:10px;
+font-size:16px
+}
+
+/* CATEGORY */
+.categories{
+display:flex;
+overflow-x:auto;
+gap:10px;
+padding:15px
+}
+
+.cat-card{
+min-width:140px;
+background:white;
+border-radius:18px;
+text-align:center;
+padding:12px;
+font-weight:bold;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+cursor:pointer
+}
+
+/* MENU */
 .section{padding:20px}
 .section h2{margin-bottom:10px}
-.item-card{background:white;border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
-select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px;width:100%}
-.qty-control{display:flex;align-items:center;gap:8px;margin-top:8px}
-.qty-control button{padding:6px 12px;background:#0f172a;color:white;border:none;border-radius:8px}
-.add-btn{margin-top:10px;width:100%;padding:10px;background:#f59e0b;border:none;color:white;border-radius:12px}
-.cart-btn{position:fixed;bottom:20px;right:20px;background:#f59e0b;color:white;padding:18px;border-radius:50%;border:none;font-size:20px}
+
+.item-card{
+background:white;
+border-radius:18px;
+padding:15px;
+margin-bottom:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08)
+}
+
+select,input{
+padding:8px;
+border-radius:10px;
+border:1px solid #ddd;
+margin-top:5px;
+width:100%
+}
+
+.qty-control{
+display:flex;
+align-items:center;
+gap:8px;
+margin-top:8px
+}
+
+.qty-control button{
+padding:6px 12px;
+background:#0f172a;
+color:white;
+border:none;
+border-radius:8px
+}
+
+.add-btn{
+margin-top:10px;
+width:100%;
+padding:10px;
+background:#f59e0b;
+border:none;
+color:white;
+border-radius:12px
+}
+
+/* CART BUTTON */
+.cart-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#f59e0b;
+color:white;
+padding:18px;
+border-radius:50%;
+border:none;
+font-size:20px;
+z-index:1000
+}
 
 /* FULL SCREEN CART */
 .cart-panel{
@@ -32,16 +116,39 @@ padding:20px;
 overflow-y:auto;
 transform:translateX(100%);
 transition:.3s;
-z-index:2000;
+z-index:2000
 }
-.cart-panel.active{
-transform:translateX(0);
-}
-.cart-item{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px}
-.cart-total{font-weight:bold;margin-top:15px;font-size:18px}
 
-.footer{background:#0f172a;color:white;text-align:center;padding:25px;margin-top:30px}
-.footer a{color:#f59e0b;text-decoration:none}
+.cart-panel.active{
+transform:translateX(0)
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+font-size:14px
+}
+
+.cart-total{
+font-weight:bold;
+margin-top:15px;
+font-size:18px
+}
+
+/* FOOTER */
+.footer{
+background:#0f172a;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:30px
+}
+
+.footer a{
+color:#f59e0b;
+text-decoration:none
+}
 </style>
 </head>
 
@@ -80,89 +187,18 @@ transform:translateX(0);
 
 <script>
 
-const menuData = {
-"Pizza":[
-{name:"Onion Pizza",sizes:[150,170,250,350]},
-{name:"Sweet Corn Paneer Pizza",sizes:[160,180,260,360]},
-{name:"Mushroom Pizza",sizes:[150,170,250,360]},
-{name:"Paneer Pizza",sizes:[160,180,270,450]},
-{name:"Paneer Makhani Pizza",sizes:[170,180,280,460]},
-{name:"Black Olive Pizza",sizes:[170,190,280,460]},
-{name:"Mexicana Pizza",sizes:[180,190,290,450]},
-{name:"Jumbo Pizza",sizes:[180,200,310,480]},
-{name:"Paneer Do Pyaza Pizza",sizes:[180,210,310,480]},
-{name:"Farm Fresh Pizza",sizes:[190,220,320,490]},
-{name:"Tandoori Pizza",sizes:[200,220,330,510]},
-{name:"Achari Pizza",sizes:[200,220,330,510]},
-{name:"Special Four Cheese Pizza",sizes:[210,230,350,480]},
-{name:"Canadian Spicy Pizza",sizes:[220,240,360,500]},
-{name:"Punjabi Pizza",sizes:[230,280,350,510]},
-{name:"Margherita Pizza",sizes:[60,80,170,270]},
-{name:"Tomato Pizza",sizes:[60,90,180,280]},
-{name:"Sweet Corn Pizza",sizes:[60,90,180,280]}
-],
-"Burger":[
-{name:"Happy Price Burger",price:40},
-{name:"Regular Burger",price:50},
-{name:"Noodle Burger",price:60},
-{name:"Special Burger",price:70},
-{name:"Royal Burger",price:80},
-{name:"Chizzy Burger",price:100},
-{name:"Canadian Double Decker",price:130}
-],
-"Chinese":[
-{name:"Veg Noodles",price:50},
-{name:"Paneer Noodles",price:80},
-{name:"Haaka Noodles",price:70},
-{name:"Special Hakka Noodles",price:100},
-{name:"Dry Manchurian",price:60},
-{name:"Gravy Manchurian",price:70},
-{name:"Fried Rice",price:70},
-{name:"Paneer Fried Rice",price:90},
-{name:"Fried Rice + Manchurian",price:120},
-{name:"Chilli Potato",price:60},
-{name:"Chilli Paneer Half",price:90},
-{name:"Chilli Paneer Full",price:160}
-],
-"Shakes":[
-{name:"Cold Coffee Regular",price:50},
-{name:"Cold Coffee Special",price:100},
-{name:"Strawberry Regular",price:60},
-{name:"Strawberry Special",price:110},
-{name:"Chocolate Regular",price:70},
-{name:"Chocolate Special",price:120},
-{name:"Oreo Regular",price:70},
-{name:"Oreo Special",price:120},
-{name:"Butter Scotch Regular",price:80},
-{name:"Butter Scotch Special",price:130},
-{name:"Mango Regular",price:70},
-{name:"Mango Special",price:120},
-{name:"Kiwi Regular",price:90},
-{name:"Kiwi Special",price:140},
-{name:"Banana Regular",price:70},
-{name:"Banana Special",price:120},
-{name:"Black Currant Regular",price:120},
-{name:"Black Currant Special",price:150},
-{name:"Pineapple Regular",price:70},
-{name:"Pineapple Special",price:120}
+const menuData={
+"Tea & Coffee":[
+{name:"Hot Coffee",price:30},
+{name:"Paste Hot Coffee",price:40},
+{name:"Tea",price:20},
+{name:"Kulhad Special Tea",price:30}
 ],
 "Snacks":[
 {name:"French Fries",price:80},
 {name:"Potato Pops",price:80},
 {name:"French Fries Pari Pari",price:90},
 {name:"Paneer Pakora (Per Kg)",price:600}
-],
-"Dosa":[
-{name:"Masala Dosa",price:60},
-{name:"Onion Dosa",price:70},
-{name:"Paneer Dosa",price:80},
-{name:"Canadian Special Dosa",price:90}
-],
-"Tea & Coffee":[
-{name:"Hot Coffee",price:30},
-{name:"Paste Hot Coffee",price:40},
-{name:"Tea",price:20},
-{name:"Kulhad Special Tea",price:30}
 ]
 };
 
@@ -175,22 +211,13 @@ Object.keys(menuData).forEach(cat=>{
 categoryContainer.innerHTML+=`<div class="cat-card" onclick="document.getElementById('${cat}').scrollIntoView({behavior:'smooth'})">${cat}</div>`;
 let section=`<div class="section" id="${cat}"><h2>${cat}</h2>`;
 menuData[cat].forEach((item,i)=>{
-section+=`<div class="item-card"><h3>${item.name}</h3>`;
-if(item.sizes){
-section+=`<select id="${cat+i}">
-<option value="${item.sizes[0]}">Regular - ₹${item.sizes[0]}</option>
-<option value="${item.sizes[1]}">Extra Regular - ₹${item.sizes[1]}</option>
-<option value="${item.sizes[2]}">Medium - ₹${item.sizes[2]}</option>
-<option value="${item.sizes[3]}">Large - ₹${item.sizes[3]}</option>
-</select>`;
-}
-section+=`
+section+=`<div class="item-card"><h3>${item.name}</h3>
 <div class="qty-control">
 <button onclick="changeQty('${cat+i}q',-1)">-</button>
 <input type="number" id="${cat+i}q" value="1">
 <button onclick="changeQty('${cat+i}q',1)">+</button>
 </div>
-<button class="add-btn" onclick="addToCart('${cat}','${item.name}','${cat+i}')">Add to Cart</button>
+<button class="add-btn" onclick="addToCart('${cat}','${item.name}',${item.price},'${cat+i}')">Add to Cart</button>
 </div>`;
 });
 section+="</div>";
@@ -204,17 +231,8 @@ if(q<1)q=1;
 input.value=q;
 }
 
-function addToCart(cat,name,id){
+function addToCart(cat,name,price,id){
 let qty=parseInt(document.getElementById(id+"q").value);
-let price;
-let select=document.getElementById(id);
-if(select){
-price=parseInt(select.value);
-let size=select.options[select.selectedIndex].text.split(" - ")[0];
-name=name+" ("+size+")";
-}else{
-price=menuData[cat].find(i=>i.name===name).price;
-}
 let existing=cart.find(i=>i.name===name);
 if(existing){existing.qty+=qty;}
 else{cart.push({name,price,qty});}
