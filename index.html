@@ -7,29 +7,34 @@
 <style>
 body{margin:0;font-family:Arial;background:#f2f4f8}
 header{background:#0f172a;color:white;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
+header p{margin:4px 0;font-size:14px}
 .search-box input{width:90%;padding:12px;border-radius:25px;border:none;margin-top:10px;font-size:16px}
-.categories{display:flex;overflow-x:auto;gap:12px;padding:15px}
-.cat-card{min-width:130px;background:white;border-radius:18px;text-align:center;padding:15px;font-weight:bold;box-shadow:0 6px 15px rgba(0,0,0,0.1);cursor:pointer}
+.categories{display:flex;overflow-x:auto;gap:10px;padding:15px}
+.cat-card{min-width:140px;background:white;border-radius:18px;text-align:center;padding:12px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.1);cursor:pointer}
 .section{padding:20px}
-.section h2{margin-bottom:15px}
-.item-card{background:white;border-radius:18px;padding:15px;margin-bottom:15px;box-shadow:0 6px 15px rgba(0,0,0,0.08)}
-.item-card h3{margin:5px 0}
-select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px}
+.section h2{margin-bottom:10px}
+.item-card{background:white;border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px;width:100%}
 .qty-control{display:flex;align-items:center;gap:8px;margin-top:8px}
-.qty-control button{padding:6px 12px;background:#0f172a;color:white;border:none;border-radius:8px;font-size:16px}
-.add-btn{margin-top:10px;width:100%;padding:10px;background:#f59e0b;border:none;color:white;border-radius:12px;font-size:16px}
+.qty-control button{padding:6px 12px;background:#0f172a;color:white;border:none;border-radius:8px}
+.add-btn{margin-top:10px;width:100%;padding:10px;background:#f59e0b;border:none;color:white;border-radius:12px}
 .cart-panel{position:fixed;right:-100%;top:0;width:340px;height:100%;background:white;box-shadow:-5px 0 20px rgba(0,0,0,0.2);padding:20px;transition:.3s;overflow-y:auto}
 .cart-panel.active{right:0}
-.cart-item{display:flex;justify-content:space-between;margin-bottom:10px}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:8px}
 .cart-total{font-weight:bold;margin-top:15px;font-size:18px}
 .cart-btn{position:fixed;bottom:20px;right:20px;background:#f59e0b;color:white;padding:18px;border-radius:50%;border:none;font-size:20px}
+.footer{background:#0f172a;color:white;text-align:center;padding:25px;margin-top:30px}
+.footer a{color:#f59e0b;text-decoration:none}
 </style>
 </head>
 
 <body>
 
 <header>
-<h2>🍁 Canadian Pizza & Burger</h2>
+<h2>Canadian Pizza & Burger</h2>
+<p>📍 Banda Road, Khutar, Shahjahanpur – 242405</p>
+<p>📞 <a href="tel:+917992007113" style="color:#f59e0b;text-decoration:none;">+91 7992007113</a></p>
+<p>🕒 Open Daily: 10:00 AM – 11:00 PM</p>
 <div class="search-box">
 <input type="text" placeholder="Search food..." onkeyup="searchItems(this.value)">
 </div>
@@ -47,12 +52,18 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 
 <button class="cart-btn" onclick="toggleCart()">🛒</button>
 
+<footer class="footer">
+<h3>About Us</h3>
+<p>Canadian Pizza & Burger serves fresh pizzas, burgers, Chinese, shakes and snacks at affordable prices. Quality and taste are our priority.</p>
+<p><a href="https://maps.app.goo.gl/9dd661A5yQpbdK8F8?g_st=ic" target="_blank">View on Google Maps</a></p>
+<p>© 2026 Canadian Pizza & Burger</p>
+</footer>
+
 <script>
 
 const menuData = {
 
-"🍕 Pizza":{
-items:[
+"Pizza":[
 {name:"Onion Pizza",sizes:[150,170,250,350]},
 {name:"Sweet Corn Paneer Pizza",sizes:[160,180,260,360]},
 {name:"Mushroom Pizza",sizes:[150,170,250,360]},
@@ -71,10 +82,9 @@ items:[
 {name:"Margherita Pizza",sizes:[60,80,170,270]},
 {name:"Tomato Pizza",sizes:[60,90,180,280]},
 {name:"Sweet Corn Pizza",sizes:[60,90,180,280]}
-]},
+],
 
-"🍔 Burger":{
-items:[
+"Burger":[
 {name:"Happy Price Burger",price:40},
 {name:"Regular Burger",price:50},
 {name:"Noodle Burger",price:60},
@@ -82,10 +92,9 @@ items:[
 {name:"Royal Burger",price:80},
 {name:"Chizzy Burger",price:100},
 {name:"Canadian Double Decker",price:130}
-]},
+],
 
-"🍜 Chinese":{
-items:[
+"Chinese":[
 {name:"Veg Noodles",price:50},
 {name:"Paneer Noodles",price:80},
 {name:"Haaka Noodles",price:70},
@@ -98,10 +107,9 @@ items:[
 {name:"Chilli Potato",price:60},
 {name:"Chilli Paneer Half",price:90},
 {name:"Chilli Paneer Full",price:160}
-]},
+],
 
-"🥤 Shakes":{
-items:[
+"Shakes":[
 {name:"Cold Coffee Regular",price:50},
 {name:"Cold Coffee Special",price:100},
 {name:"Strawberry Regular",price:60},
@@ -122,26 +130,42 @@ items:[
 {name:"Black Currant Special",price:150},
 {name:"Pineapple Regular",price:70},
 {name:"Pineapple Special",price:120}
-]},
+],
 
-"🍟 Snacks":{
-items:[
+"Snacks":[
 {name:"French Fries",price:80},
 {name:"Potato Pops",price:80},
 {name:"French Fries Pari Pari",price:90},
 {name:"Paneer Pakora (Per Kg)",price:600}
-]}
+],
+
+"Dosa":[
+{name:"Masala Dosa",price:60},
+{name:"Onion Dosa",price:70},
+{name:"Paneer Dosa",price:80},
+{name:"Canadian Special Dosa",price:90}
+],
+
+"Tea & Coffee":[
+{name:"Hot Coffee",price:30},
+{name:"Paste Hot Coffee",price:40},
+{name:"Tea",price:20},
+{name:"Kulhad Special Tea",price:30}
+]
+
 };
 
-// Generate UI
 const categoryContainer=document.getElementById("categoryContainer");
 const menuContainer=document.getElementById("menuContainer");
 
 Object.keys(menuData).forEach(cat=>{
 categoryContainer.innerHTML+=`<div class="cat-card" onclick="scrollToSection('${cat}')">${cat}</div>`;
+
 let section=`<div class="section" id="${cat}"><h2>${cat}</h2>`;
-menuData[cat].items.forEach((item,i)=>{
+
+menuData[cat].forEach((item,i)=>{
 section+=`<div class="item-card"><h3>${item.name}</h3>`;
+
 if(item.sizes){
 section+=`
 <select id="${cat+i}">
@@ -151,6 +175,7 @@ section+=`
 <option value="${item.sizes[3]}">Large - ₹${item.sizes[3]}</option>
 </select>`;
 }
+
 section+=`
 <div class="qty-control">
 <button onclick="changeQty('${cat+i}q',-1)">-</button>
@@ -160,30 +185,35 @@ section+=`
 <button class="add-btn" onclick="addToCart('${cat}','${item.name}','${cat+i}')">Add to Cart</button>
 </div>`;
 });
+
 section+="</div>";
 menuContainer.innerHTML+=section;
 });
 
-// Cart
 let cart=[];
+
 function changeQty(id,val){
 let input=document.getElementById(id);
 let q=parseInt(input.value)+val;
 if(q<1)q=1;
 input.value=q;
 }
+
 function addToCart(cat,name,id){
 let qty=parseInt(document.getElementById(id+"q").value);
 let price;
 let select=document.getElementById(id);
 if(select){
 price=parseInt(select.value);
+let sizeText=select.options[select.selectedIndex].text.split(" - ")[0];
+name=name+" ("+sizeText+")";
 }else{
-price=menuData[cat].items.find(i=>i.name===name).price;
+price=menuData[cat].find(i=>i.name===name).price;
 }
 cart.push({name:name,price:price,qty:qty});
 renderCart();
 }
+
 function renderCart(){
 let items=document.getElementById("cartItems");
 items.innerHTML="";
@@ -194,8 +224,10 @@ items.innerHTML+=`<div class="cart-item">${item.name} x${item.qty}<button onclic
 });
 document.getElementById("total").innerText=total;
 }
+
 function removeItem(i){cart.splice(i,1);renderCart();}
 function toggleCart(){document.getElementById("cartPanel").classList.toggle("active");}
+
 function sendOrder(){
 if(cart.length==0){alert("Cart empty");return;}
 let msg="Order:%0A";let total=0;
@@ -206,7 +238,11 @@ total+=item.price*item.qty;
 msg+="%0ATotal: ₹"+total;
 window.open("https://wa.me/917992007113?text="+msg);
 }
-function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
+
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
 function searchItems(val){
 val=val.toLowerCase();
 document.querySelectorAll(".item-card").forEach(card=>{
@@ -215,5 +251,6 @@ card.style.display=card.innerText.toLowerCase().includes(val)?"block":"none";
 }
 
 </script>
+
 </body>
 </html>
