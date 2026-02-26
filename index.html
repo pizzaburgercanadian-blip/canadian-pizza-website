@@ -7,7 +7,7 @@
 <style>
 body{
   margin:0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background:#f4f4f4;
 }
 
@@ -15,69 +15,120 @@ header{
   background:black;
   color:white;
   text-align:center;
-  padding:20px;
+  padding:25px;
 }
 
-nav{
-  background:#222;
-  text-align:center;
-  padding:10px;
+header p{
+  margin:5px 0;
 }
 
-nav button{
-  padding:8px 12px;
-  margin:5px;
-  border:none;
+.cart-btn{
   background:#ff9800;
   color:white;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.tabs{
-  text-align:center;
-  margin:20px 0;
-}
-
-.tabs button{
-  padding:10px 15px;
-  margin:5px;
+  padding:10px 20px;
   border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.menu-section{
+  max-width:1100px;
+  margin:30px auto;
+  padding:0 15px;
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.food-card{
+  background:white;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transition:0.3s;
+}
+
+.food-card:hover{
+  transform:translateY(-5px);
+}
+
+.food-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.food-card-content{
+  padding:15px;
+  text-align:center;
+}
+
+.food-card select,
+.food-card input{
+  width:90%;
+  padding:6px;
+  margin:5px 0;
+}
+
+.food-card button{
   background:black;
   color:white;
-  border-radius:5px;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
   cursor:pointer;
+  margin-top:5px;
 }
 
-.menu-category{
-  display:none;
-  max-width:900px;
-  margin:20px auto;
+.cart-panel{
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:320px;
+  height:100%;
   background:white;
-  padding:20px;
-  border-radius:8px;
+  box-shadow:-5px 0 15px rgba(0,0,0,0.2);
+  padding:15px;
+  transition:0.4s;
+  overflow-y:auto;
 }
 
-.menu-item{
+.cart-panel.active{
+  right:0;
+}
+
+.cart-item{
   display:flex;
   justify-content:space-between;
   margin:8px 0;
 }
 
-.menu-item button{
-  background:black;
-  color:white;
+.cart-total{
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.order-btn{
+  width:100%;
+  padding:10px;
+  background:#ff9800;
   border:none;
-  padding:5px 10px;
-  border-radius:5px;
+  color:white;
+  margin-top:10px;
+  font-weight:bold;
   cursor:pointer;
 }
 
 footer{
-  text-align:center;
-  padding:15px;
   background:#111;
   color:white;
+  text-align:center;
+  padding:15px;
+  margin-top:40px;
 }
 </style>
 </head>
@@ -87,134 +138,118 @@ footer{
 <header>
 <h1>🍁 Canadian Pizza & Burger</h1>
 <p>Banda Road, Khutar, Shahjahanpur</p>
+<p>📞 <a href="tel:917992007113" style="color:#ff9800;">+91 7992007113</a></p>
+<button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
 </header>
 
-<nav>
-<button onclick="viewCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
-</nav>
+<div class="menu-section">
+<h2 style="text-align:center;">🍕 Pizzas</h2>
 
-<h2 style="text-align:center;">Our Full Menu</h2>
+<div class="menu-grid">
 
-<div class="tabs">
-<button onclick="showCategory('pizza')">🍕 Pizza</button>
-<button onclick="showCategory('burger')">🍔 Burger</button>
-<button onclick="showCategory('wrap')">🌯 Wrap</button>
-<button onclick="showCategory('chinese')">🍜 Chinese</button>
-<button onclick="showCategory('shake')">🥤 Shakes</button>
-<button onclick="showCategory('kulhad')">🥘 Kulhad</button>
+<div class="food-card">
+<img src="https://images.unsplash.com/photo-1601924582975-7e9b9b1a9c3b">
+<div class="food-card-content">
+<h3>Margherita</h3>
+
+<select id="size1">
+<option value="60">Regular - ₹60</option>
+<option value="80">Extra Regular - ₹80</option>
+<option value="170">Medium - ₹170</option>
+<option value="270">Large - ₹270</option>
+</select>
+
+<input type="number" id="qty1" value="1" min="1">
+
+<button onclick="addPizza('Margherita','size1','qty1')">Add</button>
+</div>
 </div>
 
-<!-- PIZZA -->
-<div class="menu-category pizza">
-<h3>Pizzas</h3>
+<div class="food-card">
+<img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65">
+<div class="food-card-content">
+<h3>Paneer Makhani</h3>
 
-<div class="menu-item"><span>Onion Pizza - ₹150</span><button onclick="addToCart('Onion Pizza',150)">Add</button></div>
-<div class="menu-item"><span>Sweet Corn Paneer - ₹160</span><button onclick="addToCart('Sweet Corn Paneer',160)">Add</button></div>
-<div class="menu-item"><span>Mushroom Pizza - ₹150</span><button onclick="addToCart('Mushroom Pizza',150)">Add</button></div>
-<div class="menu-item"><span>Paneer Pizza - ₹160</span><button onclick="addToCart('Paneer Pizza',160)">Add</button></div>
-<div class="menu-item"><span>Paneer Makhani - ₹170</span><button onclick="addToCart('Paneer Makhani',170)">Add</button></div>
-<div class="menu-item"><span>Farm Fresh - ₹190</span><button onclick="addToCart('Farm Fresh',190)">Add</button></div>
-<div class="menu-item"><span>Tandoori Pizza - ₹200</span><button onclick="addToCart('Tandoori Pizza',200)">Add</button></div>
-<div class="menu-item"><span>Punjabi Pizza - ₹230</span><button onclick="addToCart('Punjabi Pizza',230)">Add</button></div>
-<div class="menu-item"><span>Margherita - ₹60</span><button onclick="addToCart('Margherita',60)">Add</button></div>
+<select id="size2">
+<option value="170">Regular - ₹170</option>
+<option value="180">Extra Regular - ₹180</option>
+<option value="280">Medium - ₹280</option>
+<option value="460">Large - ₹460</option>
+</select>
 
+<input type="number" id="qty2" value="1" min="1">
+
+<button onclick="addPizza('Paneer Makhani','size2','qty2')">Add</button>
+</div>
 </div>
 
-<!-- BURGER -->
-<div class="menu-category burger">
-<h3>Burgers</h3>
-
-<div class="menu-item"><span>Happy Price Burger - ₹40</span><button onclick="addToCart('Happy Price Burger',40)">Add</button></div>
-<div class="menu-item"><span>Regular Burger - ₹50</span><button onclick="addToCart('Regular Burger',50)">Add</button></div>
-<div class="menu-item"><span>Special Burger - ₹70</span><button onclick="addToCart('Special Burger',70)">Add</button></div>
-<div class="menu-item"><span>Royal Burger - ₹80</span><button onclick="addToCart('Royal Burger',80)">Add</button></div>
-<div class="menu-item"><span>Canadian Double Decker - ₹130</span><button onclick="addToCart('Canadian Double Decker',130)">Add</button></div>
-
+</div>
 </div>
 
-<!-- WRAPS -->
-<div class="menu-category wrap">
-<h3>Wraps</h3>
-
-<div class="menu-item"><span>Veg Wrap - ₹70</span><button onclick="addToCart('Veg Wrap',70)">Add</button></div>
-<div class="menu-item"><span>Paneer Wrap - ₹90</span><button onclick="addToCart('Paneer Wrap',90)">Add</button></div>
-<div class="menu-item"><span>Special Wrap - ₹110</span><button onclick="addToCart('Special Wrap',110)">Add</button></div>
-
-</div>
-
-<!-- CHINESE -->
-<div class="menu-category chinese">
-<h3>Chinese</h3>
-
-<div class="menu-item"><span>Veg Noodles - ₹50</span><button onclick="addToCart('Veg Noodles',50)">Add</button></div>
-<div class="menu-item"><span>Hakka Noodles - ₹70</span><button onclick="addToCart('Hakka Noodles',70)">Add</button></div>
-<div class="menu-item"><span>Fried Rice - ₹90</span><button onclick="addToCart('Fried Rice',90)">Add</button></div>
-<div class="menu-item"><span>Paneer Fried Rice - ₹120</span><button onclick="addToCart('Paneer Fried Rice',120)">Add</button></div>
-<div class="menu-item"><span>Chilli Paneer - ₹90</span><button onclick="addToCart('Chilli Paneer',90)">Add</button></div>
-
-</div>
-
-<!-- SHAKES -->
-<div class="menu-category shake">
-<h3>Shakes</h3>
-
-<div class="menu-item"><span>Cold Coffee - ₹50</span><button onclick="addToCart('Cold Coffee',50)">Add</button></div>
-<div class="menu-item"><span>Chocolate Shake - ₹70</span><button onclick="addToCart('Chocolate Shake',70)">Add</button></div>
-<div class="menu-item"><span>Oreo Shake - ₹70</span><button onclick="addToCart('Oreo Shake',70)">Add</button></div>
-<div class="menu-item"><span>Mango Shake - ₹70</span><button onclick="addToCart('Mango Shake',70)">Add</button></div>
-
-</div>
-
-<!-- KULHAD -->
-<div class="menu-category kulhad">
-<h3>Kulhad Pizza</h3>
-
-<div class="menu-item"><span>Veg Kulhad Pizza - ₹50</span><button onclick="addToCart('Veg Kulhad Pizza',50)">Add</button></div>
-<div class="menu-item"><span>Tandoori Kulhad - ₹70</span><button onclick="addToCart('Tandoori Kulhad',70)">Add</button></div>
-<div class="menu-item"><span>Paneer Kulhad - ₹120</span><button onclick="addToCart('Paneer Kulhad',120)">Add</button></div>
-
+<div class="cart-panel" id="cartPanel">
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+<button class="order-btn" onclick="sendOrder()">Order on WhatsApp</button>
 </div>
 
 <footer>
+📍 <a href="https://maps.app.goo.gl/9dd661A5yQpbdK8F8?g_st=ic" target="_blank" style="color:#ff9800;">View on Google Maps</a><br>
 © 2026 Canadian Pizza & Burger
 </footer>
 
 <script>
-var cart=[];
+let cart=[];
 
-function showCategory(category){
-  var all=document.querySelectorAll(".menu-category");
-  all.forEach(function(item){ item.style.display="none"; });
-  document.querySelector("."+category).style.display="block";
+function addPizza(name,sizeId,qtyId){
+  let select=document.getElementById(sizeId);
+  let sizeText=select.options[select.selectedIndex].text;
+  let price=parseInt(select.value);
+  let qty=parseInt(document.getElementById(qtyId).value);
+
+  let fullName=name+" ("+sizeText.split(" - ")[0]+")";
+
+  cart.push({name:fullName,price:price,qty:qty});
+  renderCart();
 }
 
-showCategory("pizza");
+function renderCart(){
+  let cartItems=document.getElementById("cartItems");
+  cartItems.innerHTML="";
+  let total=0;
 
-function addToCart(name,price){
-  cart.push({name:name,price:price});
+  cart.forEach((item,index)=>{
+    total+=item.price*item.qty;
+    cartItems.innerHTML+=`
+      <div class="cart-item">
+      ${item.name} x${item.qty}
+      <span>₹${item.price*item.qty}</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("cartTotal").innerText=total;
   document.getElementById("cartCount").innerText=cart.length;
-  alert(name+" added to cart");
 }
 
-function viewCart(){
-  if(cart.length==0){ alert("Cart is empty"); return; }
+function toggleCart(){
+  document.getElementById("cartPanel").classList.toggle("active");
+}
 
-  var message="Your Order:%0A";
-  var total=0;
+function sendOrder(){
+  if(cart.length===0){ alert("Cart is empty"); return; }
 
-  cart.forEach(function(item){
-    message+=item.name+" - ₹"+item.price+"%0A";
-    total+=item.price;
+  let message="Order:%0A";
+  let total=0;
+
+  cart.forEach(item=>{
+    message+=item.name+" x"+item.qty+" - ₹"+(item.price*item.qty)+"%0A";
+    total+=item.price*item.qty;
   });
 
   message+="%0ATotal: ₹"+total;
 
-  var pay=confirm("Total ₹"+total+". Pay now?");
-  if(pay){
-    window.location.href="upi://pay?pa=yourupiid@upi&pn=CanadianPizza&am="+total+"&cu=INR";
-  }else{
-    window.open("https://wa.me/917992007113?text="+message);
-  }
+  window.open("https://wa.me/917992007113?text="+message);
 }
 </script>
 
