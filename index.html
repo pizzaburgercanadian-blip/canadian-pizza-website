@@ -18,11 +18,28 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 .qty-control{display:flex;align-items:center;gap:8px;margin-top:8px}
 .qty-control button{padding:6px 12px;background:#0f172a;color:white;border:none;border-radius:8px}
 .add-btn{margin-top:10px;width:100%;padding:10px;background:#f59e0b;border:none;color:white;border-radius:12px}
-.cart-panel{position:fixed;right:-100%;top:0;width:340px;height:100%;background:white;box-shadow:-5px 0 20px rgba(0,0,0,0.2);padding:20px;transition:.3s;overflow-y:auto}
-.cart-panel.active{right:0}
-.cart-item{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
-.cart-total{font-weight:bold;margin-top:15px;font-size:18px}
 .cart-btn{position:fixed;bottom:20px;right:20px;background:#f59e0b;color:white;padding:18px;border-radius:50%;border:none;font-size:20px}
+
+/* FULL SCREEN CART */
+.cart-panel{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+padding:20px;
+overflow-y:auto;
+transform:translateX(100%);
+transition:.3s;
+z-index:2000;
+}
+.cart-panel.active{
+transform:translateX(0);
+}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px}
+.cart-total{font-weight:bold;margin-top:15px;font-size:18px}
+
 .footer{background:#0f172a;color:white;text-align:center;padding:25px;margin-top:30px}
 .footer a{color:#f59e0b;text-decoration:none}
 </style>
@@ -43,8 +60,10 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 <div class="categories" id="categoryContainer"></div>
 <div id="menuContainer"></div>
 
+<!-- FULL SCREEN CART -->
 <div class="cart-panel" id="cartPanel">
-<h3>Your Cart</h3>
+<button onclick="toggleCart()" style="float:right;background:none;border:none;font-size:22px;">✖</button>
+<h2>Your Cart</h2>
 <div id="cartItems"></div>
 <div class="cart-total">Total: ₹<span id="total">0</span></div>
 <button class="add-btn" onclick="sendOrder()">Order on WhatsApp</button>
@@ -62,7 +81,6 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 <script>
 
 const menuData = {
-
 "Pizza":[
 {name:"Onion Pizza",sizes:[150,170,250,350]},
 {name:"Sweet Corn Paneer Pizza",sizes:[160,180,260,360]},
@@ -83,7 +101,6 @@ const menuData = {
 {name:"Tomato Pizza",sizes:[60,90,180,280]},
 {name:"Sweet Corn Pizza",sizes:[60,90,180,280]}
 ],
-
 "Burger":[
 {name:"Happy Price Burger",price:40},
 {name:"Regular Burger",price:50},
@@ -93,7 +110,6 @@ const menuData = {
 {name:"Chizzy Burger",price:100},
 {name:"Canadian Double Decker",price:130}
 ],
-
 "Chinese":[
 {name:"Veg Noodles",price:50},
 {name:"Paneer Noodles",price:80},
@@ -108,7 +124,6 @@ const menuData = {
 {name:"Chilli Paneer Half",price:90},
 {name:"Chilli Paneer Full",price:160}
 ],
-
 "Shakes":[
 {name:"Cold Coffee Regular",price:50},
 {name:"Cold Coffee Special",price:100},
@@ -131,28 +146,24 @@ const menuData = {
 {name:"Pineapple Regular",price:70},
 {name:"Pineapple Special",price:120}
 ],
-
 "Snacks":[
 {name:"French Fries",price:80},
 {name:"Potato Pops",price:80},
 {name:"French Fries Pari Pari",price:90},
 {name:"Paneer Pakora (Per Kg)",price:600}
 ],
-
 "Dosa":[
 {name:"Masala Dosa",price:60},
 {name:"Onion Dosa",price:70},
 {name:"Paneer Dosa",price:80},
 {name:"Canadian Special Dosa",price:90}
 ],
-
 "Tea & Coffee":[
 {name:"Hot Coffee",price:30},
 {name:"Paste Hot Coffee",price:40},
 {name:"Tea",price:20},
 {name:"Kulhad Special Tea",price:30}
 ]
-
 };
 
 let cart=[];
@@ -217,8 +228,8 @@ let total=0;
 cart.forEach((item,i)=>{
 total+=item.price*item.qty;
 items.innerHTML+=`<div class="cart-item">
-<div>${item.name}<br>₹${item.price} x ${item.qty}</div>
-<button onclick="removeItem(${i})">❌</button>
+<div>${item.name} x${item.qty}</div>
+<button onclick="removeItem(${i})">X</button>
 </div>`;
 });
 document.getElementById("total").innerText=total;
