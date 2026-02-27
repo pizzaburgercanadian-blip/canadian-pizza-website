@@ -5,45 +5,177 @@
 <title>Canadian Pizza & Burger</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f2f4f8}
-header{background:#0f172a;color:white;padding:20px;text-align:center}
-header p{margin:4px 0;font-size:14px}
-.search-box input{width:90%;padding:12px;border-radius:25px;border:none;margin-top:10px;font-size:16px}
+body{
+margin:0;
+font-family:Arial;
+background:#0b0f19;
+color:white;
+}
 
-.categories{display:flex;overflow-x:auto;gap:10px;padding:15px}
-.cat-card{min-width:140px;background:white;border-radius:18px;text-align:center;padding:12px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.1);cursor:pointer}
+header{
+background:#111827;
+padding:20px;
+text-align:center;
+}
+
+header p{margin:4px 0;font-size:14px;color:#cbd5e1}
+
+.search-box input{
+width:90%;
+padding:12px;
+border-radius:25px;
+border:none;
+margin-top:10px;
+font-size:16px;
+background:#1f2937;
+color:white;
+}
+
+.categories{
+display:flex;
+overflow-x:auto;
+gap:10px;
+padding:15px;
+position:sticky;
+top:0;
+background:#0b0f19;
+z-index:10;
+}
+
+.cat-card{
+min-width:130px;
+background:#1f2937;
+border-radius:18px;
+text-align:center;
+padding:12px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.cat-card:hover{
+background:#f97316;
+color:black;
+}
 
 .section{padding:20px}
-.section h2{margin-bottom:10px}
+.section h2{margin-bottom:10px;color:#f97316}
 
-.item-card{background:white;border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.item-card{
+background:#1f2937;
+border-radius:18px;
+padding:15px;
+margin-bottom:12px;
+transition:.3s;
+}
 
-select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px;width:100%}
+.item-card:hover{
+transform:scale(1.02);
+}
 
-.qty-control{display:flex;align-items:center;gap:8px;margin-top:8px}
-.qty-control button{padding:6px 12px;background:#0f172a;color:white;border:none;border-radius:8px}
+select,input{
+padding:8px;
+border-radius:10px;
+border:none;
+margin-top:5px;
+width:100%;
+background:#111827;
+color:white;
+}
 
-.add-btn{margin-top:10px;width:100%;padding:10px;background:#f59e0b;border:none;color:white;border-radius:12px}
+.qty-control{
+display:flex;
+align-items:center;
+gap:8px;
+margin-top:8px;
+}
 
-.cart-btn{position:fixed;bottom:20px;right:20px;background:#f59e0b;color:white;padding:18px;border-radius:50%;border:none;font-size:20px;z-index:1000}
+.qty-control button{
+padding:6px 12px;
+background:#f97316;
+color:black;
+border:none;
+border-radius:8px;
+font-weight:bold;
+}
 
-.cart-panel{position:fixed;top:0;left:0;width:100%;height:100%;background:white;padding:20px;overflow-y:auto;transform:translateX(100%);transition:.3s;z-index:2000}
-.cart-panel.active{transform:translateX(0)}
+.add-btn{
+margin-top:10px;
+width:100%;
+padding:10px;
+background:#f97316;
+border:none;
+color:black;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+}
 
-.cart-item{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px}
-.cart-total{font-weight:bold;margin-top:15px;font-size:18px}
+/* FLOATING CART BAR */
+.cart-bar{
+position:fixed;
+bottom:-100px;
+left:0;
+width:100%;
+background:#f97316;
+color:black;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+font-weight:bold;
+transition:.4s;
+z-index:1000;
+}
 
-.footer{background:#0f172a;color:white;text-align:center;padding:25px;margin-top:30px}
-.footer a{color:#f59e0b;text-decoration:none}
+.cart-bar.active{
+bottom:0;
+}
+
+.cart-panel{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0b0f19;
+padding:20px;
+overflow-y:auto;
+transform:translateX(100%);
+transition:.4s;
+z-index:2000;
+}
+
+.cart-panel.active{
+transform:translateX(0);
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+background:#1f2937;
+padding:10px;
+border-radius:10px;
+}
+
+.footer{
+background:#111827;
+text-align:center;
+padding:25px;
+margin-top:40px;
+color:#cbd5e1;
+}
+.footer a{color:#f97316;text-decoration:none}
 </style>
 </head>
 
 <body>
 
 <header>
-<h2>Canadian Pizza & Burger</h2>
+<h2 style="color:#f97316">Canadian Pizza & Burger</h2>
 <p>📍 Banda Road, Khutar, Shahjahanpur – 242405</p>
-<p>📞 <a href="tel:+917992007113" style="color:#f59e0b;text-decoration:none;">+91 7992007113</a></p>
+<p>📞 +91 7992007113</p>
 <p>🕒 Open Daily: 10:00 AM – 11:00 PM</p>
 <div class="search-box">
 <input type="text" placeholder="Search food..." onkeyup="searchItems(this.value)">
@@ -53,15 +185,20 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 <div class="categories" id="categoryContainer"></div>
 <div id="menuContainer"></div>
 
+<!-- CART PANEL -->
 <div class="cart-panel" id="cartPanel">
-<button onclick="toggleCart()" style="float:right;background:none;border:none;font-size:22px;">✖</button>
-<h2>Your Cart</h2>
+<button onclick="toggleCart()" style="float:right;background:none;border:none;color:white;font-size:22px;">✖</button>
+<h2 style="color:#f97316">Your Cart</h2>
 <div id="cartItems"></div>
-<div class="cart-total">Total: ₹<span id="total">0</span></div>
+<h3>Total: ₹<span id="total">0</span></h3>
 <button class="add-btn" onclick="sendOrder()">Order on WhatsApp</button>
 </div>
 
-<button class="cart-btn" onclick="toggleCart()">🛒</button>
+<!-- FLOATING CART BAR -->
+<div class="cart-bar" id="cartBar" onclick="toggleCart()">
+<span id="cartCount">0 items</span>
+<span>₹ <span id="cartTotalBar">0</span> | View Cart</span>
+</div>
 
 <footer class="footer">
 <h3>About Us</h3>
@@ -72,8 +209,8 @@ select,input{padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:5px
 
 <script>
 
+/* ===== FULL MENU DATA ===== */
 const menuData = {
-
 "Pizza":[
 {name:"Onion Pizza",sizes:[150,170,250,350]},
 {name:"Sweet Corn Paneer Pizza",sizes:[160,180,260,360]},
@@ -94,7 +231,6 @@ const menuData = {
 {name:"Tomato Pizza",sizes:[60,90,180,280]},
 {name:"Sweet Corn Pizza",sizes:[60,90,180,280]}
 ],
-
 "Burger":[
 {name:"Happy Price Burger",price:40},
 {name:"Regular Burger",price:50},
@@ -104,7 +240,6 @@ const menuData = {
 {name:"Chizzy Burger",price:100},
 {name:"Canadian Double Decker",price:130}
 ],
-
 "Chinese":[
 {name:"Veg Noodles",price:50},
 {name:"Paneer Noodles",price:80},
@@ -119,55 +254,36 @@ const menuData = {
 {name:"Chilli Paneer Half",price:90},
 {name:"Chilli Paneer Full",price:160}
 ],
-
 "Shakes":[
 {name:"Cold Coffee Regular",price:50},
 {name:"Cold Coffee Special",price:100},
 {name:"Strawberry Regular",price:60},
 {name:"Strawberry Special",price:110},
 {name:"Chocolate Regular",price:70},
-{name:"Chocolate Special",price:120},
-{name:"Oreo Regular",price:70},
-{name:"Oreo Special",price:120},
-{name:"Butter Scotch Regular",price:80},
-{name:"Butter Scotch Special",price:130},
-{name:"Mango Regular",price:70},
-{name:"Mango Special",price:120},
-{name:"Kiwi Regular",price:90},
-{name:"Kiwi Special",price:140},
-{name:"Banana Regular",price:70},
-{name:"Banana Special",price:120},
-{name:"Black Currant Regular",price:120},
-{name:"Black Currant Special",price:150},
-{name:"Pineapple Regular",price:70},
-{name:"Pineapple Special",price:120}
+{name:"Chocolate Special",price:120}
 ],
-
 "Snacks":[
 {name:"French Fries",price:80},
 {name:"Potato Pops",price:80},
 {name:"French Fries Pari Pari",price:90},
 {name:"Paneer Pakora (Per Kg)",price:600}
 ],
-
 "Dosa":[
 {name:"Masala Dosa",price:60},
 {name:"Onion Dosa",price:70},
 {name:"Paneer Dosa",price:80},
 {name:"Canadian Special Dosa",price:90}
 ],
-
 "Tea & Coffee":[
 {name:"Hot Coffee",price:30},
 {name:"Paste Hot Coffee",price:40},
 {name:"Tea",price:20},
 {name:"Kulhad Special Tea",price:30}
 ]
-
 };
 
+/* ===== RENDER MENU ===== */
 let cart=[];
-
 const categoryContainer=document.getElementById("categoryContainer");
 const menuContainer=document.getElementById("menuContainer");
 
@@ -176,21 +292,18 @@ categoryContainer.innerHTML+=`<div class="cat-card" onclick="document.getElement
 let section=`<div class="section" id="${cat}"><h2>${cat}</h2>`;
 menuData[cat].forEach((item,i)=>{
 section+=`<div class="item-card"><h3>${item.name}</h3>`;
-
 if(item.sizes){
-section+=`
-<select id="${cat+i}">
+section+=`<select id="${cat+i}">
 <option value="${item.sizes[0]}">Regular - ₹${item.sizes[0]}</option>
 <option value="${item.sizes[1]}">Extra Regular - ₹${item.sizes[1]}</option>
 <option value="${item.sizes[2]}">Medium - ₹${item.sizes[2]}</option>
 <option value="${item.sizes[3]}">Large - ₹${item.sizes[3]}</option>
 </select>`;
 }
-
 section+=`
 <div class="qty-control">
 <button onclick="changeQty('${cat+i}q',-1)">-</button>
-<input type="number" id="${cat+i}q" value="1" min="1">
+<input type="number" id="${cat+i}q" value="1">
 <button onclick="changeQty('${cat+i}q',1)">+</button>
 </div>
 <button class="add-btn" onclick="addToCart('${cat}','${item.name}','${cat+i}')">Add to Cart</button>
@@ -200,6 +313,7 @@ section+="</div>";
 menuContainer.innerHTML+=section;
 });
 
+/* ===== FUNCTIONS ===== */
 function changeQty(id,val){
 let input=document.getElementById(id);
 let q=parseInt(input.value)+val;
@@ -213,32 +327,41 @@ let price;
 let select=document.getElementById(id);
 if(select){
 price=parseInt(select.value);
-let sizeText=select.options[select.selectedIndex].text.split(" - ")[0];
-name=name+" ("+sizeText+")";
+let size=select.options[select.selectedIndex].text.split(" - ")[0];
+name=name+" ("+size+")";
 }else{
 price=menuData[cat].find(i=>i.name===name).price;
 }
 let existing=cart.find(i=>i.name===name);
 if(existing){existing.qty+=qty;}
 else{cart.push({name,price,qty});}
-renderCart();
+updateCart();
 }
 
-function renderCart(){
+function updateCart(){
+let total=0,count=0;
 let items=document.getElementById("cartItems");
 items.innerHTML="";
-let total=0;
 cart.forEach((item,i)=>{
 total+=item.price*item.qty;
+count+=item.qty;
 items.innerHTML+=`<div class="cart-item">
-<div>${item.name} x${item.qty}</div>
+<span>${item.name} x${item.qty}</span>
 <button onclick="removeItem(${i})">X</button>
 </div>`;
 });
 document.getElementById("total").innerText=total;
+document.getElementById("cartTotalBar").innerText=total;
+document.getElementById("cartCount").innerText=count+" items";
+
+if(count>0){
+document.getElementById("cartBar").classList.add("active");
+}else{
+document.getElementById("cartBar").classList.remove("active");
+}
 }
 
-function removeItem(i){cart.splice(i,1);renderCart();}
+function removeItem(i){cart.splice(i,1);updateCart();}
 function toggleCart(){document.getElementById("cartPanel").classList.toggle("active");}
 
 function sendOrder(){
