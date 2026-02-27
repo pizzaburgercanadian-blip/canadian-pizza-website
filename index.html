@@ -1,67 +1,103 @@
-head>
+<!DOCTYPE html>
+<html>
+<head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canadian Pizza & Burger</title>
 
 <style>
 body{
 margin:0;
-font-family:Arial;
+font-family: 'Segoe UI', sans-serif;
 background:#0f172a;
 color:white;
 }
 
 header{
 background:#111827;
-padding:20px;
+padding:25px 15px;
 text-align:center;
+}
+
+header h2{
+margin:0;
+color:#f97316;
 }
 
 header p{
 margin:4px 0;
-font-size:14px;
 color:#cbd5e1;
+font-size:13px;
 }
 
 .search-box input{
-width:90%;
-padding:10px;
-border-radius:20px;
+width:95%;
+max-width:500px;
+padding:12px;
+border-radius:25px;
 border:none;
-margin-top:10px;
+margin-top:15px;
 background:#1f2937;
 color:white;
 }
 
 .section{
-padding:20px;
+padding:25px 15px;
+max-width:650px;
+margin:auto;
 }
 
 .section h2{
 color:#f97316;
+margin-bottom:15px;
+border-left:4px solid #f97316;
+padding-left:10px;
 }
 
 .item{
-background:#1f2937;
-padding:15px;
-border-radius:12px;
-margin-bottom:10px;
+background:#1e293b;
+padding:18px;
+border-radius:16px;
+margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.item-left{
+display:flex;
+flex-direction:column;
+}
+
+.item-name{
+font-weight:600;
+}
+
+.item-price{
+color:#94a3b8;
+font-size:13px;
+}
+
+.item-right{
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.qty{
+width:45px;
+padding:6px;
+border-radius:8px;
+border:none;
+text-align:center;
 }
 
 button{
 background:#f97316;
 border:none;
-padding:8px 12px;
-border-radius:8px;
-font-weight:bold;
+padding:8px 14px;
+border-radius:10px;
+font-weight:600;
 cursor:pointer;
-}
-
-.qty{
-width:50px;
-padding:5px;
-border-radius:6px;
-border:none;
-margin-left:10px;
 }
 
 .cart-bar{
@@ -71,7 +107,7 @@ left:0;
 width:100%;
 background:#f97316;
 color:black;
-padding:15px;
+padding:18px;
 display:flex;
 justify-content:space-between;
 font-weight:bold;
@@ -100,9 +136,10 @@ right:0;
 
 .footer{
 background:#111827;
-padding:20px;
+padding:25px;
 text-align:center;
 margin-top:40px;
+color:#cbd5e1;
 }
 </style>
 </head>
@@ -110,7 +147,7 @@ margin-top:40px;
 <body>
 
 <header>
-<h2 style="color:#f97316;">Canadian Pizza & Burger</h2>
+<h2>Canadian Pizza & Burger</h2>
 <p>📍 Banda Road, Khutar, Shahjahanpur – 242405</p>
 <p>📞 +91 7992007113</p>
 <p>🕒 Open Daily: 10:00 AM – 11:00 PM</p>
@@ -138,31 +175,63 @@ margin-top:40px;
 
 <footer class="footer">
 <h3>About Us</h3>
-<p>Fresh Pizza, Burgers, Chinese, Shakes & Snacks at best price.</p>
-<p><a href="https://maps.app.goo.gl/9dd661A5yQpbdK8F8" target="_blank" style="color:#f97316;">View on Google Maps</a></p>
+<p>We serve Pizza, Burgers, Chinese, Shakes, Dosa, Snacks & More.</p>
 <p>© 2026 Canadian Pizza & Burger</p>
 </footer>
 
 <script>
 
 const menuData = {
+
 "Pizza":[
-["Onion Pizza",150],
-["Paneer Pizza",160],
-["Farm Fresh Pizza",190]
+["Onion Pizza",150],["Sweet Corn Paneer Pizza",160],["Mushroom Pizza",150],
+["Paneer Pizza",160],["Paneer Makhani Pizza",170],["Black Olive Pizza",170],
+["Mexicana Pizza",180],["Jumbo Pizza",180],["Paneer Do Pyaza Pizza",180],
+["Farm Fresh Pizza",190],["Tandoori Pizza",200],["Achari Pizza",200],
+["Special Four Cheese Pizza",210],["Canadian Spicy Pizza",220],
+["Punjabi Pizza",230],["Margherita Pizza",60],["Tomato Pizza",60],
+["Sweet Corn Pizza",60]
 ],
+
 "Burger":[
-["Happy Price Burger",40],
-["Royal Burger",80]
+["Happy Price Burger",40],["Regular Burger",50],["Noodle Burger",60],
+["Special Burger",70],["Royal Burger",80],
+["Chizzy Burger",100],["Canadian Double Decker",130]
 ],
+
 "Chinese":[
-["Veg Noodles",50],
-["Fried Rice",70]
+["Veg Noodles",50],["Paneer Noodles",80],["Haaka Noodles",70],
+["Special Hakka Noodles",100],["Dry Manchurian",60],
+["Gravy Manchurian",70],["Fried Rice",70],
+["Paneer Fried Rice",90],["Fried Rice + Manchurian",120],
+["Chilli Potato",60],["Chilli Paneer Half",90],
+["Chilli Paneer Full",160]
 ],
+
+"Shakes":[
+["Cold Coffee",50],["Strawberry Shake",60],
+["Chocolate Shake",70],["Oreo Milk Shake",70],
+["Butter Scotch Shake",80],["Mango Shake",70],
+["Kiwi Shake",90],["Banana Shake",70],
+["Black Currant",120],["Pineapple",70]
+],
+
+"Dosa":[
+["Masala Dosa",60],["Onion Dosa",70],
+["Paneer Dosa",80],["Canadian Special Dosa",90]
+],
+
+"Snacks":[
+["French Fries",80],["Potato Pops",80],
+["French Fries Pari Pari",90],
+["Paneer Pakora (Per Kg)",600]
+],
+
 "Tea & Coffee":[
-["Hot Coffee",30],
-["Tea",20]
+["Hot Coffee",30],["Paste Hot Coffee",40],
+["Tea",20],["Kulhad Special Tea",30]
 ]
+
 };
 
 let cart=[];
@@ -177,9 +246,14 @@ section.innerHTML="<h2>"+category+"</h2>";
 menuData[category].forEach(item=>{
 section.innerHTML+=`
 <div class="item">
-${item[0]} - ₹${item[1]}
+<div class="item-left">
+<div class="item-name">${item[0]}</div>
+<div class="item-price">₹${item[1]}</div>
+</div>
+<div class="item-right">
 <input type="number" min="1" value="1" class="qty" id="${item[0]}">
 <button onclick="addToCart('${item[0]}',${item[1]})">Add</button>
+</div>
 </div>
 `;
 });
@@ -196,8 +270,7 @@ updateCart();
 }
 
 function updateCart(){
-let total=0;
-let count=0;
+let total=0,count=0;
 let cartItems=document.getElementById("cartItems");
 cartItems.innerHTML="";
 
@@ -205,11 +278,8 @@ cart.forEach((item,i)=>{
 total+=item.price*item.qty;
 count+=item.qty;
 cartItems.innerHTML+=`
-<div>
-${item.name} x${item.qty} - ₹${item.price*item.qty}
-<button onclick="removeItem(${i})">X</button>
-</div>
-`;
+<div>${item.name} x${item.qty} - ₹${item.price*item.qty}
+<button onclick="removeItem(${i})">X</button></div>`;
 });
 
 document.getElementById("total").innerText=total;
@@ -233,22 +303,15 @@ document.getElementById("cartPanel").classList.toggle("active");
 }
 
 function orderNow(){
-if(cart.length===0){
-alert("Cart is empty");
-return;
-}
-
+if(cart.length===0){alert("Cart is empty");return;}
 let message="Order Details:%0A";
 let total=0;
-
 cart.forEach(item=>{
 let itemTotal=item.price*item.qty;
 total+=itemTotal;
 message+=item.name+" x"+item.qty+" - ₹"+itemTotal+"%0A";
 });
-
 message+="%0ATotal: ₹"+total;
-
 window.open("https://wa.me/917992007113?text="+message);
 }
 
